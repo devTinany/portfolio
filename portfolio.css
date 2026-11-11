@@ -300,6 +300,11 @@ body {
     box-shadow: 0 0 60px rgba(167, 244, 50, 0.3);
     z-index: 2;
 }
+.imagem-avatar picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
 
 .imagem-avatar img {
     width: 100%;
@@ -478,7 +483,7 @@ body {
 /* --- Grid de Tecnologias --- */
 .grade-tecnologias {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    grid-template-columns: repeat(5,1fr);
     gap: 16px;
 }
 
@@ -793,9 +798,14 @@ body {
 
 @media (max-width: 768px) {
     .grade-projetos {
-        gap: 30vh;
-        --topo-base: 80px;
-        --passo: 12px;
+        gap: 12px;
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .grade-tecnologias {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 /*6. SEÇÃO CONTATO */
