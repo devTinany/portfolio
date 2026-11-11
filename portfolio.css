@@ -1,5 +1,6 @@
 body {
-    timeline-scope: --sec-inicio, --sec-sobre, --sec-tecnologias,--sec-experiencia, --sec-projetos, --sec-contato;
+    timeline-scope: --sec-inicio, --sec-sobre, --sec-tecnologias,
+                    --sec-experiencia, --sec-projetos, --sec-contato;
 }
 
 #inicio      { view-timeline-name: --sec-inicio; }
@@ -9,7 +10,7 @@ body {
 #projetos    { view-timeline-name: --sec-projetos; }
 #contato     { view-timeline-name: --sec-contato; }
 
-
+/* remove"~/início" fixo vindo do global.css */
 .caminho-atual::before, .caminho-atual::after,
 .logo-marca .caminho-atual::before, .logo-marca .caminho-atual::after,
 .navegacao-principal .caminho-atual::before, .navegacao-principal .caminho-atual::after {
@@ -17,6 +18,7 @@ body {
     display: none !important;
 }
 
+/*  rótulos ficam por cima de tudo */
 .caminho-atual {
     position: relative;
     isolation: isolate;
@@ -37,7 +39,7 @@ body {
     text-shadow: 0 0 8px rgba(167, 244, 50, .35);
 }
 
-/* card que entra depois fica sempre por cima */
+/* rótulo que entra depois fica sempre por cima */
 .caminho-inicio      { z-index: 1; }
 .caminho-sobre       { z-index: 2; }
 .caminho-tecnologias { z-index: 3; }
@@ -52,27 +54,22 @@ body {
         animation-timeline: --sec-inicio;
         animation-range: cover 0% entry-crossing calc(100% + 55vh);
     }
-
     .caminho-sobre {
         animation-timeline: --sec-sobre;
         animation-range: entry-crossing 55vh entry-crossing calc(100% + 55vh);
     }
-
     .caminho-tecnologias {
         animation-timeline: --sec-tecnologias;
         animation-range: entry-crossing 55vh entry-crossing calc(100% + 55vh);
     }
-
     .caminho-experiencia {
         animation-timeline: --sec-experiencia;
         animation-range: entry-crossing 55vh entry-crossing calc(100% + 55vh);
     }
-
     .caminho-projetos {
         animation-timeline: --sec-projetos;
         animation-range: entry-crossing 55vh entry-crossing calc(100% + 55vh);
     }
-
     .caminho-contato {
         animation-timeline: --sec-contato;
         animation-range: entry-crossing 55vh cover 100%;
@@ -85,12 +82,16 @@ body {
         99%  { opacity: 1; }
         100% { opacity: 0; }
     }
-
     @keyframes janela-ultimo {
         0%   { opacity: 0; }
         1%   { opacity: 1; }
         100% { opacity: 1; }
     }
+}
+
+/*  sem scroll-driven, mostra só o início */
+@supports not (animation-timeline: view()) {
+    .caminho-inicio { opacity: 1; }
 }
 /*1. SEÇÃO INÍCIO */
 .secao-hero {
@@ -146,7 +147,7 @@ body {
     text-shadow: 0 0 40px rgba(167, 244, 50, 0.4);
 }
 
-/* --- cursor escrevendo --- */
+/* --- Máquina de escrever --- */
 .container-digitacao {
     font-family: var(--fonte-mono);
     font-size: 1.1rem;
@@ -165,7 +166,7 @@ body {
     font-weight: 600;
 }
 
-/* cresce e empurra o cursor */
+/* a largura cresce e empurra o cursor */
 .palavra {
     display: inline-block;
     flex: none;
@@ -176,7 +177,6 @@ body {
     animation-iteration-count: infinite;
 }
 
-/* cursor uma letra de cada*/
 .palavra-um     { animation-name: digitar-1; animation-timing-function: steps(20, end); }
 .palavra-dois   { animation-name: digitar-2; animation-timing-function: steps(17, end); }
 .palavra-tres   { animation-name: digitar-3; animation-timing-function: steps(15, end); }
@@ -190,40 +190,6 @@ body {
     background: var(--cor-primaria);
     margin-left: 2px;
     animation: piscar 0.8s step-end infinite;
-}
-
-@keyframes piscar {
-    0%, 100% { opacity: 1; }
-    50%      { opacity: 0; }
-}
-
-/* escreve (0→12%), segura (12→20%), apaga (20→24%) */
-@keyframes digitar-1 {
-    0%        { width: 0; }
-    12%       { width: 20ch; }
-    20%       { width: 20ch; }
-    24%, 100% { width: 0; }
-}
-
-@keyframes digitar-2 {
-    0%, 25%   { width: 0; }
-    37%       { width: 17ch; }
-    45%       { width: 17ch; }
-    49%, 100% { width: 0; }
-}
-
-@keyframes digitar-3 {
-    0%, 50%   { width: 0; }
-    62%       { width: 15ch; }
-    70%       { width: 15ch; }
-    74%, 100% { width: 0; }
-}
-
-@keyframes digitar-4 {
-    0%, 75%   { width: 0; }
-    87%       { width: 17ch; }
-    95%       { width: 17ch; }
-    99%, 100% { width: 0; }
 }
 
 .descricao-hero {
@@ -255,17 +221,6 @@ body {
     border-radius: 50%;
     box-shadow: 0 0 8px var(--cor-primaria);
     animation: pulsar 2s infinite;
-}
-
-@keyframes pulsar {
-    0%, 100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.5;
-        transform: scale(1.2);
-    }
 }
 
 .grupo-botoes {
@@ -300,6 +255,7 @@ body {
     box-shadow: 0 0 60px rgba(167, 244, 50, 0.3);
     z-index: 2;
 }
+
 .imagem-avatar picture {
     display: block;
     width: 100%;
@@ -340,7 +296,7 @@ body {
     box-shadow: 0 0 6px var(--cor-primaria);
 }
 
-/* 2. SEÇÃO SOBRE */
+/*    2. SEÇÃO SOBRE */
 .secao-sobre {
     padding: 100px 5%;
     position: relative;
@@ -423,8 +379,7 @@ body {
     font-weight: 600;
     color: var(--cor-texto);
 }
-
-/*3. SEÇÃO TECNOLOGIAS*/
+/* 3. SEÇÃO TECNOLOGIAS */
 .secao-tecnologias {
     padding: 100px 5%;
     position: relative;
@@ -471,11 +426,6 @@ body {
     color: var(--cor-primaria);
 }
 
-@keyframes marquee {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
 .faixa-tecnologias:hover .trilha-marquee {
     animation-play-state: paused;
 }
@@ -483,7 +433,7 @@ body {
 /* --- Grid de Tecnologias --- */
 .grade-tecnologias {
     display: grid;
-    grid-template-columns: repeat(5,1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 16px;
 }
 
@@ -528,8 +478,7 @@ body {
 .cartao-tecnologia:hover .nome-tecnologia {
     color: var(--cor-texto);
 }
-
-/*4. SEÇÃO EXPERIÊNCIA */
+/*4. SEÇÃO EXPERIÊNCIA*/
 .secao-experiencia {
     padding: 100px 5%;
     position: relative;
@@ -630,7 +579,8 @@ body {
     color: var(--cor-primaria);
     font-size: 0.8rem;
 }
-/*5. SEÇÃO PROJETOS*/
+/*
+   5. SEÇÃO PROJETOS*/
 .secao-projetos {
     padding: 100px 5%;
     position: relative;
@@ -650,7 +600,7 @@ body {
     timeline-scope: --proj-1, --proj-2, --proj-3;
 }
 
-/* cartao escuro*/
+/* índice, nível de escuro e timeline de cada cartão */
 .cartao-projeto:nth-child(1) { --i: 1; --escuro: .65; view-timeline-name: --proj-1; --tl-proximo: --proj-2; }
 .cartao-projeto:nth-child(2) { --i: 2; --escuro: .45; view-timeline-name: --proj-2; --tl-proximo: --proj-3; }
 .cartao-projeto:nth-child(3) { --i: 3; --escuro: 0;   view-timeline-name: --proj-3; }
@@ -660,7 +610,7 @@ body {
     top: calc(var(--topo-base) + (var(--i) - 1) * var(--passo));
     transform-origin: 50% 0;
 
-    /* FUNDO OPACO */
+    /* FUNDO OPACO: base sólida + tom do tema por cima */
     background-color: #0a0f0d;
     background-image: linear-gradient(var(--cor-fundo-cartao), var(--cor-fundo-cartao));
 
@@ -683,7 +633,7 @@ body {
     border-radius: inherit;
     background: #000;
     opacity: 0;
-    pointer-events: none;   
+    pointer-events: none;
     z-index: 1;
 }
 
@@ -718,18 +668,17 @@ body {
     }
 }
 
-/*profundidade + escuro estáticos */
+/* Fallback: profundidade + escuro estáticos */
 @supports not ((animation-timeline: view()) and (timeline-scope: --a)) {
     .cartao-projeto {
         scale: calc(1 - (var(--total-projetos) - var(--i)) * 0.05);
     }
-
     .cartao-projeto::after {
         opacity: var(--escuro);
     }
 }
 
-/* --- estilos internos --- */
+/* --- estilos internos dos cartões --- */
 .cabecalho-projeto {
     display: flex;
     justify-content: space-between;
@@ -796,19 +745,8 @@ body {
     height: 16px;
 }
 
-@media (max-width: 768px) {
-    .grade-projetos {
-        gap: 12px;
-        grid-template-columns: repeat(2,1fr);
-    }
-}
 
-@media (max-width: 480px) {
-    .grade-tecnologias {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-/*6. SEÇÃO CONTATO */
+/*6. SEÇÃO CONTATO*/
 .secao-contato {
     text-align: center;
     padding: 120px 5% 80px;
@@ -894,7 +832,65 @@ body {
 }
 
 
-/* 7. RESPONSIVIDADE*/
+/*7. KEYFRAMES  */
+
+/* cursor piscante */
+@keyframes piscar {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0; }
+}
+
+/* máquina de escrever: escreve → segura → apaga */
+@keyframes digitar-1 {
+    0%        { width: 0; }
+    12%       { width: 20ch; }
+    20%       { width: 20ch; }
+    24%, 100% { width: 0; }
+}
+
+@keyframes digitar-2 {
+    0%, 25%   { width: 0; }
+    37%       { width: 17ch; }
+    45%       { width: 17ch; }
+    49%, 100% { width: 0; }
+}
+
+@keyframes digitar-3 {
+    0%, 50%   { width: 0; }
+    62%       { width: 15ch; }
+    70%       { width: 15ch; }
+    74%, 100% { width: 0; }
+}
+
+@keyframes digitar-4 {
+    0%, 75%   { width: 0; }
+    87%       { width: 17ch; }
+    95%       { width: 17ch; }
+    99%, 100% { width: 0; }
+}
+
+/* ponto "disponível" a pulsar */
+@keyframes pulsar {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}
+
+/* marquee infinito de tecnologias */
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+
+/* 8. MEDIA QUERIES
+
+/* --- 1024px: tablet / ecrã pequeno --- */
 @media (max-width: 1024px) {
     .container-hero {
         grid-template-columns: 1fr;
@@ -962,6 +958,7 @@ body {
     }
 }
 
+/* --- 768px: mobile grande --- */
 @media (max-width: 768px) {
     .secao-sobre, .secao-tecnologias, .secao-experiencia, .secao-projetos, .secao-contato {
         padding: 60px 5%;
@@ -990,7 +987,7 @@ body {
     }
 
     .grade-tecnologias {
-        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
 
@@ -1021,17 +1018,8 @@ body {
         font-size: 1.1rem;
     }
 
-    .grade-projetos {
-        grid-template-columns: 1fr;
-    }
-
     .grade-redes {
         grid-template-columns: repeat(2, 1fr);
-    }
-
-    .botao-email {
-        font-size: 0.95rem;
-        padding: 16px 24px;
     }
 
     .container-rodape {
@@ -1047,6 +1035,7 @@ body {
     }
 }
 
+/* --- 480px: mobile pequeno --- */
 @media (max-width: 480px) {
     .navegacao-principal {
         padding: 0 4%;
@@ -1061,7 +1050,7 @@ body {
     }
 
     .grade-tecnologias {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .titulo-principal {
@@ -1078,9 +1067,5 @@ body {
 
     .titulo-contato {
         font-size: 2rem;
-    }
-
-    .botao-email {
-        padding: 16px 20px;
     }
 }
